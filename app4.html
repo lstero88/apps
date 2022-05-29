@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    
+    
+    
+    <style>
+    
+    .divGrid {
+        display: grid; 
+
+        grid-template-rows: 4rem auto 45px;
+        grid-template-columns: 1fr;
+   
+        gap: 0px;
+        height: 100%;
+         
+       
+   
+      }
+    
+     #navigation {
+
+       background-color: #000080; 
+       grid-row-start: 1;
+       grid-column-start: 1;
+
+       grid-row-end: 2;
+       grid-column-end: 2;
+       
+    
+      }
+      
+      #content_container {
+
+        background-color: #282E58; 
+        grid-row-start: 2;
+        grid-column-start: 1;
+
+        grid-row-end: 3;
+        grid-column-end: 2;
+        
+        color: #FFF;
+   
+   
+     }    
+     
+     #csvHeader {
+     
+          color: #FFF;
+     
+          font-weight: bold;
+          font-size: 25px;
+      
+          
+          
+ 
+     
+        
+     }
+	 
+	 #subNav {
+	 
+			margin-left: 20px; 
+			margin-top: 10px; 
+     }
+	 
+     .navBtn1 {
+        background: #e7f5fe;
+ 
+        height: 40px;
+        width: 150px;
+        font-size: 15px;
+        font-weight: bold;
+       
+        
+     }
+     
+     
+     .navBtn1:hover {
+        background: #FFF;
+ 
+        height: 40px;
+        width: 150px;
+        font-size: 15px;
+        font-weight: bold;
+       
+        
+     }
+    
+    table {
+        text-align: left;
+        border: 1px solid #DEDEDE;
+        border-collapse: collapse;
+        font-family:"Arial";
+ 
+    
+    } 
+    
+    
+ 
+    
+    th {
+   
+       
+
+       position: sticky;
+       top: -1.5px;
+       
+       z-index: 1000;
+       padding: 8px 16px;
+       
+       border-left: 0px solid rgba(0,0,0,0.2);
+       border-right: 0px solid rgba(0,0,0,0.2);
+	   border-bottom: 0px solid rgba(0,0,0,0.2);
+	   
+	   
+	   
+  
+    }
+    
+    .td1, .tr1
+    {
+       border-left: 1px solid rgba(0,0,0,0.2);
+       border-right: 1px solid rgba(0,0,0,0.2);
+       border-bottom: 1px solid rgba(0,0,0,0.2);
+	   
+	   
+       
+    }
+    
+    #myTable2 {
+        text-align: left;
+    
+        border-collapse: collapse;
+        font-family:"Arial";
+ 
+           
+    }
+    
+    body {
+    height: 100%;
+    width:100%;
+    position: fixed;
+    overflow: hidden;    
+      
+ 
+      
+    }
+	
+	
+table td {
+  position: relative;
+}
+
+
+
+table td input {
+  position: absolute;
+  display: block;
+  top:0;
+  left:0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+  
+}
+
+table th input {
+  position: absolute;
+  display: block;
+  top:0;
+  left:0;
+  border: none;
+  margin: 0;
+  height: 100%;
+  width: 80%;
+ 
+  border-bottom: 0px solid rgba(0,0,0,0.2); 
+       
+  padding: 10px;
+  box-sizing: border-box;
+  background: #FFFFF8;
+  
+}	
+
+ 
+
+
+.csvHeaderText
+{
+	min-width: 150px;
+}
+
+
+table th button {
+ 
+  
+}
+
+	
+#addColumn {
+
+  min-width: 150px;
+}
+
+
+@media (max-width: 625px) {
+
+     .navBtn1 {
+        background: #e7f5fe;
+ 
+        height: 40px;
+        width: 75px;
+        font-size: 13px;
+        font-weight: bold;
+       
+        
+     }
+	 
+	 
+     .navBtn1:hover {
+        background: #FFF;
+ 
+        height: 40px;
+        width: 75px;
+        font-size: 13px;
+        font-weight: bold;
+       
+        
+     }
+	 
+	 
+	      #csvHeader {
+			padding-top: 50px;
+		  }
+		  
+		#subNav{
+			margin-top: 12px;
+		}
+
+}
+ 
+    
+ 
+    
+    </style>
+    
+      
+    
+  </head>
+  
+  
+  
+  
+  <body>
+<div class="divGrid">
+  <div id="navigation"><div  id="subNav"><span id="csvHeader">CSV Editor</span><span style="margin-left: 20px;"><button class="navBtn1" onClick="createNewFile()">New File</button>
+     <button class="navBtn1" onClick="loadFileWindow();">Open File</button>
+     </span></div></div>
+  <div id="content_container"><div style="margin-left: 20px;"><h2><b>Choose to open csv file, or create a new one.</b></h2></div>
+</div>
+
+    
+    
+    
+  </body>
+</html>
+
