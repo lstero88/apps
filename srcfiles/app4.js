@@ -1,16 +1,17 @@
-let lastRowClickedIndex = -1;
-let clickEventType = -1;
-let focusedFileName;
-let isReadOnly = false;
-let appFileName = "app4.html";
-let trEventStore_mouseout;
-let trEventStore_mouseover;
-let trEventStore_click;
+var lastRowClickedIndex = -1;
+var clickEventType = -1;
+var focusedFileName;
+var isReadOnly = false;
+var appFileName = "app4.html";
+
+var trEventStore_mouseout;
+var trEventStore_mouseover;
+var trEventStore_click;
 
 function csvFileSaved() {
 	document.getElementById('saveStatus').innerHTML = "File saved!";
 }
-let body = document.querySelector('body');
+var body = document.querySelector('body');
 
 function buildEditableOutput(csvData) {
 	let editableCSV = class {
