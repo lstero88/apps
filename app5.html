@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+ 
+ 
+*, *:before, *:after {
+-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+body { 
+			margin: 0; 
+	font-family: Arial, sans-serif, Verdana;
+	
+ 
+
+	}
+
+
+.column {
+  float: left;
+}
+
+.txt1 {
+	border-radius: 5px;
+	height: 30px;
+	width: 200px;
+
+}
+
+.graphPropertyHeaders {
+
+	font-size: 1.25em;
+	color: #00008B;
+}
+
+	
+	
+#column1 {
+
+	width:60%;
+	overflow-x: auto;
+
+}
+
+#column2 {
+
+	min-width: 20%;
+	background-color:  #FCFCFC;
+	padding-left: 10px;
+	height: auto;
+	overflow-x: auto;
+}
+
+#column3 {
+
+	min-width: 20%;
+	background-color: #FCFDFF;
+	padding-left: 10px;
+	height: auto;
+	overflow-x: auto;
+	
+}
+
+
+.btn1 {
+	 margin-left: 10px;
+	 width: 100px;
+	 height: 30px;
+	 background-color: #FFFFFF;
+	 border-radius: 5px;
+	 height: 40px;
+	 font-weight: bold;
+
+}
+
+.btn1:hover {
+	background-color: #D8E0F0;
+ 
+}
+
+
+.btn2 {
+
+	 min-width: 120px;
+	 height: 30px;
+	 background-color: #FFFFFF;
+	 border-radius: 5px;
+	 height: 40px;
+	 font-weight: bold;
+
+}
+
+.btn2:hover {
+	background-color: #D8E0F0;
+ 
+}
+
+ #centerOriginToScreen {
+
+	 
+}
+
+
+
+@media screen and (max-width: 600px) {
+ 
+  
+  #column1 {
+
+	width: 100%;
+}
+
+#column2 {
+
+	width: 100%;
+ 
+}
+
+#column3 {
+
+	width: 100%;
+}
+
+ #centerOriginToScreen {
+
+	 visibility: hidden;
+}
+
+  
+ 
+}
+
+
+
+ 
+
+
+</style>
+
+
+<script type="text/javascript"src="srcfiles/app5.js"></script>
+
+
+ 
+
+
+</head>
+<body>
+
+<div style="margin-left: 10px;">
+<h2>Simple 2D Coordinate Graph</h2>
+<p>Note: Click and drag mouse in order to scroll anywhere on the 2D coordinate plane.</p>
+ 
+
+<div class="row">
+  <div class="column"  id="column1">
+ 
+ 
+ 
+ 
+ 
+  </div>
+   <div class="column"  id="column2">
+
+
+ asdf
+ 
+
+
+
+
+
+
+
+  </div>
+    <div class="column"  id="column3">
+ 
+ 
+ 
+		<b><h2 >Function List</h2></b>
+		
+		<select style="width: 200px; height: 25px;  font-weight: bold; font-size: 18px; " id="combo2">
+			<option value="squareFunction">Square</option>
+			<option value="absoluteValueFunction">Absolute Value</option>
+			<option value="squareRootFunction">Square Root</option>
+			<option value="reciprocalFunction">Reciprocal</option>
+ 			<option value="cubicFunction">Cubic</option>
+			 
+		</select>
+		<br/><br/>
+ 
+		<b><input type="checkbox" id="xy_tracking" style="margin-left: 15px; margin-top: 10px;"  onclick='changeXYTrackingSettings(this);'  checked>Enable x, y tracking</b>
+		
+		<br/><br/>
+ 
+		<button   class="btn1" onClick="addFunction()">Draw</button>
+ 
+ 
+ 
+ 
+ 
+ 
+		<br/><br/>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

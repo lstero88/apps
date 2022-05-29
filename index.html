@@ -3,6 +3,10 @@
 <head>
 
 
+
+
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <script src="/socket.io/socket.io.js"></script>
@@ -10,7 +14,8 @@
    
    
    // temp code ///
-   let appIDParameter = 4;
+ //  let appIDParameter =3;
+ let appIDParameter;
    ////
    
    
@@ -32,11 +37,12 @@
 				break;
 				
 			case 4:
-				alert("test...");
 				openCSVEditor();
 				break;			
-				
-				
+			case 5:				
+				openSimpleGraph();
+				break;
+	
 			default:
 			
 				break;
@@ -299,10 +305,7 @@
 									
 					
 				default:
-					alert("alternative....");
-					//alert(parseJSON.returnType);
-					
-					//alert("textFileDataRetrieved" === parseJSON.returnType);
+ 
 					
 					break;
 
@@ -314,14 +317,32 @@
 			
 	  });
 	  
+function openApp(appID) {
+	 window.open(portfolioURL+'/index.html?appID='+appID, '_blank');
+
+}
 	  
-	  
-	  
+	function reassignSelectedNavigationLink(linkID) {
+		
+	 
+		
+		
+		
+		document.getElementById('openTextReaderAndWriter').classList.remove('selectedLink');
+		document.getElementById('openCSVEditor').classList.remove('selectedLink');
+		document.getElementById('openSimpleGraph').classList.remove('selectedLink');
+		//document.getElementById('openChartBuilder').classList.remove('selectedLink');
+		
+		document.getElementById(linkID).classList.add('selectedLink');
+		
+
+	}
+		  
 	  
 	  
 	function openTextReaderAndWriter() {
 
-		//reassignSelectedNavigationLink('openTextReaderAndWriter');
+		reassignSelectedNavigationLink('openTextReaderAndWriter');
 
  
 	 
@@ -352,7 +373,7 @@
 
 
 
-	   // reassignSelectedNavigationLink('openCSVEditor');
+	    reassignSelectedNavigationLink('openCSVEditor');
 		document.getElementById('output1').innerHTML = "<b><h1>Loading CSV Editor, please wait..</h1></b>";
 		
 		window.history.pushState("", "Portfolio", "/");
@@ -368,6 +389,42 @@
 
 		socket.emit('client_msg', documentData);
 
+
+
+}
+
+
+
+
+function openSimpleGraph() {
+
+ 
+		
+		
+		reassignSelectedNavigationLink('openSimpleGraph');
+		
+		document.getElementById('output1').innerHTML = "<b><h1>Loading SimpleGraph, please wait..</h1></b>";
+		
+		
+		window.history.pushState("", "Portfolio", "/");
+		
+		
+		let documentData = {
+			command: 'loadApp',
+			appHTML: 'app5.html',
+			parameters: "" 	
+					
+		}	
+
+
+		socket.emit('client_msg', documentData);
+
+		
+		 
+	 
+ 
+	 
+ 	
 
 
 }
@@ -605,7 +662,60 @@ a.selectedLink {
 	
 	
 	
-	 
+		<script>
+ 	
+			switch(appIDParameter) {
+				case 3:
+					document.write('&nbsp;&nbsp;<a class="selectedLink" id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
+					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
+					
+					break;
+					
+				case 4:
+	
+					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" class="selectedLink" onClick="openCSVEditor();">CSV Editor</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
+					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
+				
+					
+					break;
+					
+				case 5:
+				
+					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" class="selectedLink" onClick="openSimpleGraph();">SimpleGraph</a>');
+					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
+					
+					
+					break;
+
+				case 6:
+				
+					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
+					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" class="selectedLink" onClick="openChartBuilder();">Chart Builder</a>');
+					
+					
+					break;
+					
+				default:
+					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
+					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
+					break;
+					
+					
+					
+			
+			}
+			
+		</script> 
 	
 	
 	</div>
