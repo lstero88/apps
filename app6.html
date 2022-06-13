@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+ <script>
+ 
+ 	let chartType = "barchart";
+ 
+ 
+ </script>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <style>
+ 
+ 
+*, *:before, *:after {
+-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+body { 
+			margin: 0; 
+	font-family: Arial, sans-serif, Verdana;
+	
+ 
+
+	}
+
+
+.column {
+  float: left;
+}
+
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: left;
+  background-color: #FFFFFF;
+}
+
+
+.txtX, .txtY, .txtColor {
+	border-radius: 5px;
+	height: 30px;
+	width: 125px;
+
+}
+
+ 
+
+.graphPropertyHeaders {
+
+	font-size: 1.25em;
+	color: orange;
+}
+
+	
+	
+#column1 {
+
+	width:60%;
+	overflow-x: auto;
+
+}
+
+
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #000000;
+  color: white;
+  min-height: 100px;
+  overflow-y: scroll;
+  font-size: 0.7em;
+
+ 
+
+ 
+}
+#dataTable1
+{
+	color: #000000;
+		overflow-x: scroll;
+ 
+}
+
+#column3 {
+
+	min-width: 35%;
+	background-color: #F5FCFF;
+	padding-left: 10px;
+	height: auto;
+	top: 10px;
+	
+ 
+ 
+	
+}
+
+#title1 {
+	background-color: #FFF;
+	width: 25%;
+	height: 10%;
+   font-size: 1.7em;
+
+}
+
+#contain1
+{
+	height: 25%;
+ 
+	overflow-y: scroll;
+	background-color: #FFF;
+	padding-left: 25px;
+	max-width: 600px;
+	overflow-x: scroll;
+ 
+	
+}
+
+
+.btn1 {
+	 margin-left: 10px;
+	 width: 100px;
+	 height: 30px;
+	 background-color: #FFFFFF;
+	 border-radius: 5px;
+	 height: 40px;
+	 font-weight: bold;
+
+}
+
+.btn1:hover {
+	background-color: #D8E0F0;
+ 
+}
+
+
+.btn2 {
+
+	 min-width: 120px;
+	 height: 30px;
+	 background-color: #FFFFFF;
+	 border-radius: 5px;
+	 height: 40px;
+	 font-weight: bold;
+
+}
+
+.btn2:hover {
+	background-color: #D8E0F0;
+ 
+}
+
+ #centerOriginToScreen {
+
+	 
+}
+
+
+.btn3 { 
+        background-color: #FFFFFF;  
+        border: 0;
+        font-weight: bold;
+        color: #00000;
+        width: 100px;
+        height: 30px;
+ 
+        hover: orange;
+        font-size: 25px;
+        height: 50px; 
+       }
+  
+.btn3:hover { 
+           background-color: #000080;
+           color: #FFFFFF;
+           font-size: 25px;
+           }
+
+.btn3:active {
+           background-color: orange;
+           color: #FFFFFF;
+           font-size: 25px;
+    } 
+
+
+
+
+
+
+  #popup_container{      
+  display : none;      
+  width :100%;      
+  height : 100%;      
+  background : rgba(50,50,50,0.5);      
+  position : fixed;      
+  top : 0;    
+  left: 0;
+   z-index : 500;      
+   overflow-y: scroll;
+  }      
+  
+  #popup{      
+  background : #FFF;      
+  width : 700px;      
+  height :50%;
+ 
+  margin : 25vh auto auto auto;      
+  overflow-y: scroll;
+  }     
+ 
+ 
+ #subcontainer1
+ {
+ background-color: #FFF; margin-left: 5px; padding-bottom: 5px;
+ width: auto;
+ 
+ }
+ 
+ 
+ 
+
+
+
+@media screen and (max-width: 600px) {
+ 
+  
+  #column1 {
+
+	width: 100%;
+}
+
+#footer {
+
+	width: 100%;
+ 
+ 
+ 
+}
+
+#dataTable1
+{
+	color: #FFFFFF;
+ 
+}
+
+#column3 {
+
+	width: 100%;
+	max-height: 400px;
+	overflow-y: scroll;
+	 
+}
+
+ #centerOriginToScreen {
+
+	 visibility: hidden;
+}
+
+#title1 {
+	background-color: #FFF;
+	width: 35%;
+	height: 10%;
+   font-size: 1.4em;
+
+ 
+}
+
+
+ #subcontainer1
+ {
+ background-color: #FFF; margin-left: 5px; padding-bottom: 5px;
+ width: 25%;
+ 
+ }
+ 
+  
+ 
+}
+
+
+
+ 
+
+
+
+
+
+.fileLoadtable{
+    border: solid 1px #000080;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 15px Arial, sans-serif, Verdana;
+}
+.fileLoadtable thead th {
+    background-color: #000080;
+    border: solid 1px #000080;
+    color: #FFF;
+    padding: 5px;
+    text-align: left;
+ 
+}
+.fileLoadtable tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 5px;
+ 
+}
+ 
+ 
+ 
+
+.fileLoadtable2{
+    border: solid 1px #000080;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 20px Arial, sans-serif, Verdana;
+	width: 500px;
+}
+.fileLoadtable2 thead th {
+    background-color: #000080;
+    border: solid 1px #000080;
+    color: #FFF;
+    padding: 5px;
+    text-align: left;
+ 
+}
+.fileLoadtable2 tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 5px;
+ 
+}
+
+.btn4 { 
+        background-color: #000080;  
+        border: 0;
+        font-weight: bold;
+        color: #FFF;
+        width: 100px;
+        height: 30px;
+ 
+        hover: orange;
+        font-size: 16px;
+        height: 50px; 
+       }
+  
+.btn4:hover { 
+           background-color: #0062CC;
+           color: #fff;
+           font-size: 16px;
+           }
+
+.btn4:active {
+           background-color: #0062CC;
+           color: #FFFFFF;
+           font-size: 16px;
+    } 
+
+
+
+
+
+
+.imageDiv1{
+    float:left;
+	margin: 10px;
+	
+}
+
+
+.imageDiv1 {
+
+	color: #222222;
+}
+
+
+.imageDiv1:hover {
+
+	color: orange;
+
+}
+ 
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+<div style="margin-left: 10px;">
+<h2>Simple Chart Builder</h2>
+<p>Note: Click and drag mouse in order to scroll left and right on graph.</p>
+ 
+ <div id="subcontainer1">
+	<span id="title1">[Untitled]</span>&nbsp;&nbsp;
+	<button class="btn2" onClick="saveFile()">Save</button>
+	<button class="btn2" onClick="getGraphFiles()">Open File</button>
+	<button class="btn2" onClick="newFileWindow()">New</button>&nbsp;&nbsp;
+	
+	 
+	<span id="fileSaveStatus"></span>
+</div>
+<div class="row">
+  <div class="column"  id="column1">
+ 
+ 
+ 
+ 
+ 
+  </div>
+   <div class="column"  id="footer">
+
+
+
+ 
+
+
+
+
+
+
+
+  </div>
+    <div class="column"  id="column3">
+ 
+  
+ 
+ 
+ 
+ 
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+ 
+
+
+
+
+
+
+  <div id="popup_container">    
+  <div id="popup"> 
+     <div style="background-color: #FFFF; text-align: right;">
+        <button onclick="closePopup()" class="btn3">X</button>    
+     </div>
+     
+     <div id="popup_content">
+
+     </div>
+     
+  </div>    
+ </div>      
+
+
+
+</body>
+
+</html>

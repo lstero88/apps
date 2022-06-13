@@ -6,6 +6,8 @@ let backend = require("./backend");
 const csv = require('csv-parser');
 const async = require('async');
 const csvsync = require('csvsync');
+const express = require('express')
+
 let reconnectInterval = 10 * 1000 * 60;
 ////////////////////////////////////////////////
 async function sendEmail1(firstName, lastName, emailAddress, message) {
@@ -51,6 +53,9 @@ async function loadCSVFile(csvFilePath) {
 let srcFolderName, srcFolderID;
 let txtFileFolderName, txtFilesFolderID;
 let csvFileFolderName, csvFilesFolderID;
+let graphFileFolderName, graphFilesFolderID;
+
+
 let appFiles = {
 	'app1.html': 'app1.js',
 	'app2.html': 'app2.js',
@@ -63,6 +68,7 @@ let folders = {
 	'srcfiles': '1__Tsbwv5KgVt6Ax_Kc5VsRsXq7b_Jmun',
 	'txtfiles': '1aBOYl4whyoyINeoEq9GoazubTRsTXWcP',
 	'csvfiles': '138IvW05lR0v3xLo6exGQkgX4OFhP4RgX',
+	'graphfiles': '1BEBmZ_y8BOTP-ykxstsYafjxOQ4QHOy-'
 }
 let appName = {
 	'app1': 'Text Reader',
@@ -86,6 +92,13 @@ function initializeFolders() {
 			csvFileFolderName = key;
 			csvFilesFolderID = value;
 		}
+		else if(index == 3) {
+			graphFileFolderName = key;
+			graphFilesFolderID = value
+			
+		}
+		
+		
 	}
 }
 initializeFolders();
@@ -220,6 +233,11 @@ function loadFile(filePath) {
 	})
 	return array1;
 }
+
+
+
+app.use(express.static('public')); 
+app.use('/images', express.static('images'));
 
 app.get('/', function(req, res) {
 	res.sendFile('index.html', {
@@ -377,7 +395,350 @@ io.on('connection', function(socket) {
 				socket.emit('server_msg', JSON.stringify(documentData));
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				else if(parseJSON.command == 'loadGraphFile') {
+				
+							fs.readFile(graphFileFolderName+'/'+parseJSON.graphTitle, 'utf8', (err, data) => {
+									
+									if(err) {
+											console.log(err);
+											return;
+									}
+									
+									//console.log(JSON.parse(data));
+									
+									let data1 = JSON.parse(data);
+									
+									
+									
+									//console.log(data1[0][0]);      // chart type
+									//console.log(data1[0][1]);	   // x-axis
+									//console.log(data1[0][2]);	   //y-axis
+									//console.log(data1[0][3]);	   // hex colors
+									//console.log(data1[1]);	// { scaleX: '1', scaleY: '1', gridSpace: '40' }
+								//	console.log(data1[2]);		//   xAxisVisible: true,
+																			// yAxisVisible: true,
+																			//  gridLinesVisible: true,
+																		// numericLabelingVisibiliy: false
+									//console.log(data1[3]);		// date created
+									
+									documentData = {
+										returnType: 'loadedGraphData',
+										data: JSON.parse(data)
+									}
+									socket.emit('server_msg', JSON.stringify(documentData));
+									
+							});
+							
+				}	
+				
+				
+				else if(parseJSON.command == 'saveGraphFile2') {
+						let jsonWrite = {
+							jsonArray: [parseJSON.parameters, parseJSON.settings, parseJSON.settings2, parseJSON.date_last_modified, parseJSON.fileName]
+		
+						};
+						
+						
+						
+						 fs.writeFile(graphFileFolderName+'/'+parseJSON.graphTitle+'.json', JSON.stringify(jsonWrite.jsonArray), function(err) {
+							 
+							 if(err) throw err;
+								console.log('Writing completed!');
+								
+								documentData = {
+									returnType: 'file_saved1',
+								}
+								
+								socket.emit('server_msg', JSON.stringify(documentData));
+
+								//console.log('message sent?');
+								
+							}
+							 
+						 );		
+								
+						
+					
+				}
+				
+				else if(parseJSON.command == 'saveGraphFile') {
+ 
+						
+						let jsonWrite = {
+							jsonArray: [parseJSON.parameters, parseJSON.settings, parseJSON.settings2, parseJSON.date_last_modified, parseJSON.fileName]
+		
+						};
+
+				
+					
+				 fs.writeFile(graphFileFolderName+'/'+parseJSON.graphTitle+'.json', JSON.stringify(jsonWrite.jsonArray), function(err) {
+					 
+					 if(err) throw err;
+						console.log('Writing complete!');
+						
+						documentData = {
+							returnType: 'file_saved1',
+						}
+						
+						socket.emit('server_msg', JSON.stringify(documentData));
+
+					}
+					 
+				 );					
+
+				}
+				
+				else if(parseJSON.command == 'getAllGraphFiles') {
+					
+					let graphFileFolder = fs.readdirSync( graphFileFolderName );
+					let files = graphFileFolder.filter( function( a ) {return a.match(/.*\.(json?)/ig);});
+
+					
+					let buildList = getGraphTypeAndDateModified(files);
+					
+				}
+				
+				
+				
+				else if(parseJSON.command == 'getCandlestickCSVFileList') {
+					
+					let graphFileFolder = fs.readdirSync( graphFileFolderName );
+					let files = graphFileFolder.filter( function( a ) {return a.match(/.*\.(csv?)/ig);});		
+					
+					
+					console.log(files);
+
+
+					documentData = {
+					
+						returnType: 'getCandlestickCSVFileListRetrieved',
+						csvFiles: files,
+						htmlPage: htmlPage
+					
+					}
+					
+				    socket.emit('server_msg', JSON.stringify(documentData));
+								
+
+				}
+				
+				
+															  
+				else if(parseJSON.command == 'getCandleStickCSVFile') {
+					
+ 
+					
+							let filePath = graphFileFolderName+'/'+parseJSON.parameters;
+							let fileSize = DriveApp.getFileSizeInMB(filePath);
+							//let fileName = parseJSON.parameters;
+							
+							let buildArray = [];
+							
+							loadCSVFile(filePath)
+							  .then(function(csvData) {
+								return new Promise(function() {
+								   setTimeout(function() {
+
+									
+									let header = [];
+									let lines = [];
+									
+									
+									 for(let a = 0; a < csvData[0].length; a++)
+									{
+										csvData[0][a].splice(csvData[0][a].length-1,1);
+										csvData[0][a].splice(csvData[0][a].length-1,1)
+									}
+									
+									documentData = {
+									
+										returnType: 'getCandleStickCSVFileRetrieved',
+										fileContents: csvData[0],
+										fileName: filePath.split('/')[1],
+										htmlPage: htmlPage
+									
+									}
+									
+									
+				 
+									socket.emit('server_msg', JSON.stringify(documentData));
+					
+
+									 
+									}, calculateTimeInterval1(fileSize))
+								})
+								
+							  })
+							  
+							  
+							  
+							 //console.log("success!");
+							//console.log(csvData[0]);
+							
+ 
+						
+				}
+				
+				else
+				{
+					 
+				}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+function getGraphTypeAndDateModified(files) {
+ 
+	
+	
+	let buildList = [];
+	
+	files.forEach( (element) => {
+
+							fs.readFile(graphFileFolderName+'/'+element, 'utf8', (err, data) => {
+									
+									if(err) {
+											console.log(err);
+											return;
+									}
+									
+									//console.log(JSON.parse(data));
+									
+									let data1 = JSON.parse(data);	
+									//console.log(data1[0][0]);      // chart type
+									//console.log(data1[0][1]);	   // x-axis
+									//console.log(data1[0][2]);	   //y-axis
+									//console.log(data1[0][3]);	   // hex colors
+									//console.log(data1[1]);	// { scaleX: '1', scaleY: '1', gridSpace: '40' }
+								//	console.log(data1[2]);		//   xAxisVisible: true,
+																			// yAxisVisible: true,
+																			//  gridLinesVisible: true,
+																		// numericLabelingVisibiliy: false
+									//console.log(data1[3]);		// date created
+									
+									//console.log(data1[0][0]  + "  --> " + data1[3]);
+									buildList.push([element, data1[0][0],  data1[3]]);
+									
+									
+									documentData = {
+										returnType: 'graphFilesRetrieved',
+										fileList: buildList
+									}
+
+									socket.emit('server_msg', JSON.stringify(documentData));
+									
+									//return buildList;
+									
+							});
+
+
+ 
+
+
+
+
+		
+	})
+	
+	
+	
+	
+	
+	
+ 
+
+	
+}
+
+
+
+
+
+ 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	socket.on('disconnect', function() {
 		console.log('A user disconnected');
 	});

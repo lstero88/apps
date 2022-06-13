@@ -43,6 +43,10 @@
 				openSimpleGraph();
 				break;
 	
+				case 6:				
+				openChartBuilder();
+				break;
+				
 			default:
 			
 				break;
@@ -301,9 +305,388 @@
 					}
 					
 					
-					break;							
+					break;					
+
+
+////////////////////
+
+				case 'loadedGraphData':
+						
+ 
+
+					//		if(chartType == 'barchart' || chartType == 'linechart') {
+										 data1 = parseJSON.data
+										 
+										 
+										 chartType = data1[0][0];
+										 
+			 
+										
+										document.getElementById('graphData').innerHTML = "";
+										clearScreen(); 
+					 
+					 
+										 
+					 
+									document.getElementById('title1').innerHTML = data1[4];
+			 
+						///////////////////////////////////////////////
+										//let header1;
+										
+										
+								
+										
+										 if(chartType == 'barchart' || chartType == 'linechart') {
+										
+													if(chartType == 'barchart') {
+														header1 = "Bar Chart Builder";
+						 
+													}
+													else if(chartType == 'linechart') { 
+														header1 = "Line Chart Builder";
+
+													}
+													
+													//
+													document.getElementById('column3').innerHTML = buildColumn3Data();
+													//			
+													
+
+													buildHTML = '<b><h2 >'+header1+'</h2></b>\
+												<br><br><b>Title</b><br/><b><input type="text" value="'+data1[4]+'" id="txtTitle"></b><br/><br/>\
+												<div id="contain1">\
+												<table id="dataTable1">\
+													<thead>\
+															<tr>\
+																<th>X</th>\
+																<th>Y</th>\
+															<th>Color</th>\
+														 </tr>\
+													</thead>\
+													<tbody>';
+									 
+									 
+													data1[0][1].forEach((element, index)=> {
+														buildHTML += '<tr><td><input type="text" class="txtX" value="'+data1[0][1][index]+'"></td><td><input type="text" class="txtY" value="'+data1[0][2][index];
+														buildHTML += '"></td><td><input type="text" class="txtColor" value="' + data1[0][3][index];
+														buildHTML += '"></td><td><button class="deleteLine1"  onClick="deleteRow(this)">X</button></td></tr>'
+													});
+													buildHTML += '</tbody></table></div>';
+													document.getElementById('graphData').innerHTML = buildHTML;
+
+												document.getElementById('scaleX').value = data1[1].scaleX;
+												document.getElementById('scaleY').value =  data1[1].scaleY;
+												document.getElementById('gridSpace').value = data1[1].gridSpace;
+												
+												if(data1[2].numericLabelingVisibility) {
+														if(!document.getElementById('numericLabelingVisible').checked) {
+															document.getElementById('numericLabelingVisible').click();
+														}
+														
+														
+												}
+												else {
+													if(document.getElementById('numericLabelingVisible').checked) {
+														document.getElementById('numericLabelingVisible').click();
+													}
+												}
+										
+										
+											   if(data1[2].xAxisVisible) {
+											   
+														if(!document.getElementById('xAxisVisibility').checked) {
+															document.getElementById('xAxisVisibility').click();
+														}
+											   
+								 
+											   }
+											   else {
+													if(document.getElementById('xAxisVisibility').checked) {
+																document.getElementById('xAxisVisibility').click();
+													 }
+											   }
+												
+												
+											   if(data1[2].yAxisVisible) {
+														if(!document.getElementById('yAxisVisibility').checked) {
+															document.getElementById('yAxisVisibility').click();
+														}
+											   }
+											   else {
+													if(document.getElementById('yAxisVisibility').checked) {
+														document.getElementById('yAxisVisibility').click();
+													
+													}
+										 
+											   }
+											   
+											   if(data1[2].gridLinesVisible) {
+						 
+													if(!document.getElementById('gridLinesVisible').checked) {
+														document.getElementById('gridLinesVisible').click();
+													}
+													
+											   }
+												else {
+													if(document.getElementById('gridLinesVisible').checked) {
+														document.getElementById('gridLinesVisible').click();
+													}
+												 
+												}
+												
+												
+												
+
+						 
+ 
+												buildGraph();
+												centerOriginToScreen();
+						
+			
+									}
 									
+									else if(chartType=='candlestick_chart') {
+													 
+											header1 = "Candlestick Chart Builder";
+						 
+										 
+											
+																								//
+													document.getElementById('column3').innerHTML = buildColumn3Data();
+													//			
+													
+
+													buildHTML = '<b><h2 >'+header1+'</h2></b>\
+												<br><br><b>Title</b><br/><b><input type="text" value="'+data1[4]+'" id="txtTitle"></b><br/><br/>\
+												<div id="contain1">\
+												<table id="dataTable1">\
+													<thead>\
+															<tr>\
+																<th>Date</th>\
+																<th>Open</th>\
+																<th>High</th>\
+																<th>Low</th>\
+																<th>Close</th>\
+														 </tr>\
+													</thead>\
+													<tbody>';
+													
+													
+				 
+													
+													data1[0][1].forEach((element, index)=> {
+													
+														buildHTML += '<tr><td><input type="text" class="candlestick_date" value="'+data1[0][1][index]+'"></td><td><input type="text" class="candlestick_open" value="'+parseFloat(data1[0][2][index]).toFixed(2);
+														buildHTML += '"></td><td><input type="text" class="candlestick_high" value="' + parseFloat(data1[0][3][index]).toFixed(2);
+														buildHTML += '"></td><td><input type="text" class="candlestick_low" value="' + parseFloat(data1[0][4][index]).toFixed(2);
+														buildHTML += '"></td><td><input type="text" class="candlestick_close" value="' + parseFloat(data1[0][5][index]).toFixed(2);												
+														buildHTML += '"></td><td><button class="deleteLine1"  onClick="deleteRow(this)">X</button></td></tr>'
+													});
+													
+											
+													buildHTML += '</tbody></table></div>';
+													document.getElementById('graphData').innerHTML = buildHTML;
+
+												document.getElementById('scaleX').value = data1[1].scaleX;
+												document.getElementById('scaleY').value =  data1[1].scaleY;
+												document.getElementById('gridSpace').value = data1[1].gridSpace;
+												
+												if(data1[2].numericLabelingVisibility) {
+														if(!document.getElementById('numericLabelingVisible').checked) {
+															document.getElementById('numericLabelingVisible').click();
+														}
+														
+														
+												}
+												else {
+													if(document.getElementById('numericLabelingVisible').checked) {
+														document.getElementById('numericLabelingVisible').click();
+													}
+												}
+										
+										
+											   if(data1[2].xAxisVisible) {
+											   
+														if(!document.getElementById('xAxisVisibility').checked) {
+															document.getElementById('xAxisVisibility').click();
+														}
+											   
+								 
+											   }
+											   else {
+													if(document.getElementById('xAxisVisibility').checked) {
+																document.getElementById('xAxisVisibility').click();
+													 }
+											   }
+												
+												
+											   if(data1[2].yAxisVisible) {
+														if(!document.getElementById('yAxisVisibility').checked) {
+															document.getElementById('yAxisVisibility').click();
+														}
+											   }
+											   else {
+													if(document.getElementById('yAxisVisibility').checked) {
+														document.getElementById('yAxisVisibility').click();
+													
+													}
+										 
+											   }
+											   
+											   if(data1[2].gridLinesVisible) {
+						 
+													if(!document.getElementById('gridLinesVisible').checked) {
+														document.getElementById('gridLinesVisible').click();
+													}
+													
+											   }
+												else {
+													if(document.getElementById('gridLinesVisible').checked) {
+														document.getElementById('gridLinesVisible').click();
+													}
+												 
+												}	
+											
+											
+
+												
+												buildGraph();
+												//centerOriginToScreen();
+									}
+									
+ 
+						 
+					 
+						// 
+			
+//////////////////////////////////////////////////////////////
 					
+					
+
+ 
+				
+					 
+					break;
+					
+					
+				case "getCandlestickCSVFileListRetrieved":
+					openCSVFileMenu(parseJSON.csvFiles);
+					break;
+					
+				case 'graphFilesRetrieved':
+				
+ 
+					
+					openFileMenu(parseJSON.fileList);
+					
+					
+					
+					 
+					
+					break;
+					
+ 
+				
+					
+				case  'file_saved1':
+ 
+				 
+					
+					document.getElementById('fileSaveStatus').innerHTML = "Filed saved!";
+					setTimeout(function() {
+						document.getElementById('fileSaveStatus').innerHTML = "";
+					}, 4000);
+					
+					
+					
+					break;
+					
+					
+				case "getCandleStickCSVFileRetrieved":
+ 
+						
+				
+//////////////////////////////////////////////////////////////////
+				
+							
+							
+ 
+							header1 = 'Candlestick Chart Builder';
+					 
+
+
+						   buildHTML = '<b><h2 >'+header1+'</h2></b>\
+						<br><br><b>Title</b><br/><b><input type="text" value="'+parseJSON.fileName+'" id="txtTitle"></b><br/><br/>\
+						<div id="contain1">\
+						<table id="dataTable1">\
+							<thead>\
+									<tr>\
+										<th>Date</th>\
+										<th>Open</th>\
+										<th>High</th>\
+										<th>Low</th>\
+										<th>Close</th>\
+								 </tr>\
+							</thead>\
+							<tbody>';
+			 
+			 
+//							data1[0][1].forEach((element, index)=> {
+//								buildHTML += '<tr><td><input type="text" class="txtX" value="'+data1[0][1][index]+'"></td><td><input type="text" class="txtY" value="'+data1[0][2][index];
+//								buildHTML += '"></td><td><input type="text" class="txtColor" value="' + data1[0][3][index];
+//								buildHTML += '"></td><td><button class="deleteLine1"  onClick="deleteRow(this)">X</button></td></tr>'
+//							});
+
+
+
+//							buildHTML += '</tbody></table></div>';
+							//document.getElementById('graphData').innerHTML = buildHTML;
+
+
+						//	alert(parseJSON.fileContents);
+						
+			
+//						console.log(parseJSON.fileContents[0]);
+
+							data1 = parseJSON.fileContents;
+							
+//						    let e = data1[0];
+//							let f;
+//
+						let e;
+
+						//	alert(data1[0]);
+			
+							data1.forEach((element, index) => {
+							
+								if(index !== 0) {
+										e = data1[index];
+										
+										buildHTML += '<tr><td><input type="text" class="candlestick_date" value="'+e[0]+'"></td>';
+										buildHTML += '<td><input type="text" class="candlestick_open" value="'+parseFloat(e[1]).toFixed(2)+'"></td>';
+										buildHTML += '<td><input type="text" class="candlestick_high" value="'+parseFloat(e[2]).toFixed(2)+'"></td>';								
+										buildHTML += '<td><input type="text" class="candlestick_low" value="'+parseFloat(e[3]).toFixed(2)+'"></td>';					
+										buildHTML += '<td><input type="text" class="candlestick_close" value="'+parseFloat(e[4]).toFixed(2)+'"></td>';		
+										buildHTML += '<td><button class="deleteLine1"  onClick="deleteRow(this)">X</button></td>';
+										
+										
+										buildHTML += '</tr>';
+								}
+							
+									//alert(data1[index]);
+							
+ 
+							});
+	
+		
+							buildHTML += '</tbody></table></div>';
+							document.getElementById('graphData').innerHTML = buildHTML;
+						
+
+//////////////////////////////////////////////////////////////////
+					
+									
+////////////////////////////////////////////////////					
 				default:
  
 					
@@ -331,6 +714,9 @@ function openApp(appID) {
 		document.getElementById('openTextReaderAndWriter').classList.remove('selectedLink');
 		document.getElementById('openCSVEditor').classList.remove('selectedLink');
 		document.getElementById('openSimpleGraph').classList.remove('selectedLink');
+		document.getElementById('openChartBuilder').classList.remove('selectedLink');
+		
+		 
 		//document.getElementById('openChartBuilder').classList.remove('selectedLink');
 		
 		document.getElementById(linkID).classList.add('selectedLink');
@@ -394,6 +780,30 @@ function openApp(appID) {
 }
 
 
+
+function openChartBuilder() {
+
+		reassignSelectedNavigationLink('openChartBuilder');
+		
+		document.getElementById('output1').innerHTML = "<b><h1>Loading Chart Builder, please wait..</h1></b>";
+		
+		
+		window.history.pushState("", "Portfolio", "/");
+		
+		let documentData = {
+			command: 'loadApp',
+			appHTML: 'app6.html',
+			parameters: "" 	
+					
+		}	
+
+
+		socket.emit('client_msg', documentData);
+
+		
+		
+		
+}
 
 
 function openSimpleGraph() {
@@ -669,7 +1079,7 @@ a.selectedLink {
 					document.write('&nbsp;&nbsp;<a class="selectedLink" id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
-					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
 					
 					break;
 					
@@ -678,7 +1088,7 @@ a.selectedLink {
 					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" class="selectedLink" onClick="openCSVEditor();">CSV Editor</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
-					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
 				
 					
 					break;
@@ -688,7 +1098,7 @@ a.selectedLink {
 					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" class="selectedLink" onClick="openSimpleGraph();">SimpleGraph</a>');
-					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
 					
 					
 					break;
@@ -698,7 +1108,7 @@ a.selectedLink {
 					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
-					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" class="selectedLink" onClick="openChartBuilder();">Chart Builder</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" class="selectedLink" onClick="openChartBuilder();">Chart Builder</a>');
 					
 					
 					break;
@@ -707,7 +1117,7 @@ a.selectedLink {
 					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
-					//document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
 					break;
 					
 					
