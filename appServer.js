@@ -8,6 +8,8 @@ const async = require('async');
 const csvsync = require('csvsync');
 const express = require('express')
 
+var url = require('url');
+
 let reconnectInterval = 10 * 1000 * 60;
 ////////////////////////////////////////////////
 async function sendEmail1(firstName, lastName, emailAddress, message) {
@@ -236,14 +238,83 @@ function loadFile(filePath) {
 
 
 
+
+ 
+
 app.use(express.static('public')); 
 app.use('/images', express.static('images'));
 
-app.get('/', function(req, res) {
+app.get('/',  function(req, res) {
 	res.sendFile('index.html', {
 		root: '.'
 	});
 });
+
+
+//app.get('/index.html', function(req, res) {
+
+	 	
+	
+//	res.sendFile('index.html', {
+//		root: '.'
+//	});
+//});
+
+app.get('/', (req, res) => {
+
+
+
+	var q = url.parse(req.url, true);
+	
+    res.set({ 'Content-Type': 'text/html' });
+		  fs.readFile('index.html', function(err, data) {
+		if (err) {
+		  res.writeHead(404, {'Content-Type': 'text/html'});
+		  return res.end("404 Not Found");
+		}
+
+		let appIDParameter = q.query['appID'];
+		let appIDParameterJS = `<script>var appIDParameter=${appIDParameter};`;
+		appIDParameterJS += "</script>";
+		
+		  
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.write(appIDParameterJS+data);
+	 
+		return res.end();
+
+	  });
+});
+
+app.get('/index.html', (req, res) => {
+
+
+
+	var q = url.parse(req.url, true);
+	
+    res.set({ 'Content-Type': 'text/html' });
+		  fs.readFile('index.html', function(err, data) {
+		if (err) {
+		  res.writeHead(404, {'Content-Type': 'text/html'});
+		  return res.end("404 Not Found");
+		}
+
+		let appIDParameter = q.query['appID'];
+		let appIDParameterJS = `<script>var appIDParameter=${appIDParameter};`;
+		appIDParameterJS += "</script>";
+		
+		  
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.write(appIDParameterJS+data);
+	 
+		return res.end();
+
+	  });
+});
+ 
+	
+ 
+
 io.on('connection', function(socket) {
 	console.log('New connection.');
 	socket.emit('connection_accept', '');

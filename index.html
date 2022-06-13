@@ -15,8 +15,11 @@
    
    // temp code ///
  //  let appIDParameter =3;
- let appIDParameter;
+ var appIDParameter;
    ////
+
+
+
    
    
    
@@ -27,8 +30,8 @@
 	  
       socket.on('connection_accept', function(data){
     
-	
- 
+		
+
  
 		switch(appIDParameter) {
 			case 3:
@@ -40,7 +43,7 @@
 				openCSVEditor();
 				break;			
 			case 5:				
-				openSimpleGraph();
+				open2DGraphScroller();
 				break;
 	
 				case 6:				
@@ -713,7 +716,7 @@ function openApp(appID) {
 		
 		document.getElementById('openTextReaderAndWriter').classList.remove('selectedLink');
 		document.getElementById('openCSVEditor').classList.remove('selectedLink');
-		document.getElementById('openSimpleGraph').classList.remove('selectedLink');
+		document.getElementById('open2DGraphScroller').classList.remove('selectedLink');
 		document.getElementById('openChartBuilder').classList.remove('selectedLink');
 		
 		 
@@ -806,14 +809,14 @@ function openChartBuilder() {
 }
 
 
-function openSimpleGraph() {
+function open2DGraphScroller() {
 
  
 		
 		
-		reassignSelectedNavigationLink('openSimpleGraph');
+		reassignSelectedNavigationLink('open2DGraphScroller');
 		
-		document.getElementById('output1').innerHTML = "<b><h1>Loading SimpleGraph, please wait..</h1></b>";
+		document.getElementById('output1').innerHTML = "<b><h1>Loading 2D Graph Scroller, please wait..</h1></b>";
 		
 		
 		window.history.pushState("", "Portfolio", "/");
@@ -1078,7 +1081,7 @@ a.selectedLink {
 				case 3:
 					document.write('&nbsp;&nbsp;<a class="selectedLink" id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
-					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="open2DGraphScroller" onClick="open2DGraphScroller();">2D Graph Scroller</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
 					
 					break;
@@ -1087,7 +1090,7 @@ a.selectedLink {
 	
 					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" class="selectedLink" onClick="openCSVEditor();">CSV Editor</a>');
-					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="open2DGraphScroller" onClick="open2DGraphScroller();">2D Graph Scroller</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
 				
 					
@@ -1097,7 +1100,7 @@ a.selectedLink {
 				
 					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
-					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" class="selectedLink" onClick="openSimpleGraph();">SimpleGraph</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="open2DGraphScroller" class="selectedLink" onClick="open2DGraphScroller();">2D Graph Scroller</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
 					
 					
@@ -1107,7 +1110,7 @@ a.selectedLink {
 				
 					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
-					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="open2DGraphScroller" onClick="open2DGraphScroller();">2D Graph Scroller</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" class="selectedLink" onClick="openChartBuilder();">Chart Builder</a>');
 					
 					
@@ -1116,7 +1119,7 @@ a.selectedLink {
 				default:
 					document.write('&nbsp;&nbsp;<a id="openTextReaderAndWriter" onClick="openTextReaderAndWriter();">Text Reader and Writer</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openCSVEditor" onClick="openCSVEditor();">CSV Editor</a>');
-					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openSimpleGraph" onClick="openSimpleGraph();">SimpleGraph</a>');
+					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="open2DGraphScroller" onClick="open2DGraphScroller();">2D Graph Scroller</a>');
 					document.write('&nbsp;&nbsp;&nbsp;&nbsp;<a id="openChartBuilder" onClick="openChartBuilder();">Chart Builder</a>');
 					break;
 					
