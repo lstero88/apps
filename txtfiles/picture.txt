@@ -1,0 +1,4 @@
+<b>This text file can render html code and will display a picture.</b>
+
+
+<img src="https://cdn5-ss15.sharpschool.com/UserFiles/Servers/Server_1445497/Image/Sunshine%20ES_Web.png">

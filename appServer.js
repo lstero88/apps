@@ -11,7 +11,7 @@ const express = require('express')
 var url = require('url');
 
 let reconnectInterval = 10 * 1000 * 60;
-////////////////////////////////////////////////
+
 async function sendEmail1(firstName, lastName, emailAddress, message) {
 	var sender = nodemailer.createTransport(smtpTransport({
 		service: 'gmail',
@@ -237,7 +237,14 @@ function loadFile(filePath) {
 }
 
 
-
+function loadFile2(filePath) {
+	let strCollect = "";
+	
+	require('fs').readFileSync(filePath, 'utf-8').split(/\r?\n/).forEach(function(line) {
+		strCollect += line + '\n';
+	})
+	return strCollect;
+}
 
  
 
@@ -322,6 +329,7 @@ io.on('connection', function(socket) {
 		console.log(message);
 		let htmlPage;
 		let jsData;
+		let jsData2;
 		let htmlData;
 		let parseJSON = message;
 		htmlPage = parseJSON.appHTML
@@ -329,14 +337,32 @@ io.on('connection', function(socket) {
 			for(app in appFiles) {
 				if(app == htmlPage) {
 					htmlData = loadFile(app);
+					
+					if(appFiles[app] === "app6.js") {
+
+						jsData = loadFile(srcFolderName + '/' + appFiles[app]);
+						jsData.unshift(loadFile2(srcFolderName + '/' + 'barChartBuilder.js'));
+						jsData.unshift(loadFile2(srcFolderName + '/' + 'lineChartBuilder.js'));
+						jsData.unshift(loadFile2(srcFolderName + '/' + 'candlestickChartBuilder.js'));
+					}
+					
+					else
+					{
 					jsData = loadFile(srcFolderName + '/' + appFiles[app]);
+					}
+					
 					break;
 				}
 			}
+			
+			
+			
+			
 			let buildJS = "";
 			let buildHTML = "";
 			for(var i = 0; i < jsData.length; i++) {
 				buildJS += removeComments(jsData[i]);
+				
 			}
 			for(var i = 0; i < htmlData.length; i++) {
 				buildHTML += removeComments(htmlData[i]);
@@ -489,23 +515,8 @@ io.on('connection', function(socket) {
 											console.log(err);
 											return;
 									}
-									
-									//console.log(JSON.parse(data));
-									
+	
 									let data1 = JSON.parse(data);
-									
-									
-									
-									//console.log(data1[0][0]);      // chart type
-									//console.log(data1[0][1]);	   // x-axis
-									//console.log(data1[0][2]);	   //y-axis
-									//console.log(data1[0][3]);	   // hex colors
-									//console.log(data1[1]);	// { scaleX: '1', scaleY: '1', gridSpace: '40' }
-								//	console.log(data1[2]);		//   xAxisVisible: true,
-																			// yAxisVisible: true,
-																			//  gridLinesVisible: true,
-																		// numericLabelingVisibiliy: false
-									//console.log(data1[3]);		// date created
 									
 									documentData = {
 										returnType: 'loadedGraphData',
@@ -524,8 +535,7 @@ io.on('connection', function(socket) {
 		
 						};
 						
-						
-						
+
 						 fs.writeFile(graphFileFolderName+'/'+parseJSON.graphTitle+'.json', JSON.stringify(jsonWrite.jsonArray), function(err) {
 							 
 							 if(err) throw err;
@@ -537,8 +547,6 @@ io.on('connection', function(socket) {
 								
 								socket.emit('server_msg', JSON.stringify(documentData));
 
-								//console.log('message sent?');
-								
 							}
 							 
 						 );		
@@ -616,7 +624,6 @@ io.on('connection', function(socket) {
 					
 							let filePath = graphFileFolderName+'/'+parseJSON.parameters;
 							let fileSize = DriveApp.getFileSizeInMB(filePath);
-							//let fileName = parseJSON.parameters;
 							
 							let buildArray = [];
 							
@@ -656,10 +663,6 @@ io.on('connection', function(socket) {
 								
 							  })
 							  
-							  
-							  
-							 //console.log("success!");
-							//console.log(csvData[0]);
 							
  
 						
@@ -739,21 +742,8 @@ function getGraphTypeAndDateModified(files) {
 											return;
 									}
 									
-									//console.log(JSON.parse(data));
 									
 									let data1 = JSON.parse(data);	
-									//console.log(data1[0][0]);      // chart type
-									//console.log(data1[0][1]);	   // x-axis
-									//console.log(data1[0][2]);	   //y-axis
-									//console.log(data1[0][3]);	   // hex colors
-									//console.log(data1[1]);	// { scaleX: '1', scaleY: '1', gridSpace: '40' }
-								//	console.log(data1[2]);		//   xAxisVisible: true,
-																			// yAxisVisible: true,
-																			//  gridLinesVisible: true,
-																		// numericLabelingVisibiliy: false
-									//console.log(data1[3]);		// date created
-									
-									//console.log(data1[0][0]  + "  --> " + data1[3]);
 									buildList.push([element, data1[0][0],  data1[3]]);
 									
 									
@@ -763,48 +753,16 @@ function getGraphTypeAndDateModified(files) {
 									}
 
 									socket.emit('server_msg', JSON.stringify(documentData));
-									
-									//return buildList;
-									
+		
 							});
 
 
- 
-
-
-
-
-		
 	})
 	
-	
-	
-	
-	
-	
- 
 
-	
 }
 
 
-
-
-
- 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

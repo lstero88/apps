@@ -80,7 +80,10 @@
 				case "loadedAppData":
 			
 					jsString = document.createElement('SCRIPT')
-					htmlString = document.createTextNode(parseJSON.javascript);
+					//htmlString = document.createTextNode(parseJSON.javascript);
+					
+					htmlString =   document.createTextNode("try{" + parseJSON.javascript + "} catch {}") ;
+					
 					
 					jsString.appendChild(htmlString);	
 				    document.body.appendChild(jsString);
