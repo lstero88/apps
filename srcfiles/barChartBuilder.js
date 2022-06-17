@@ -404,14 +404,9 @@ class barChartBuilder {
 		let pointX1 = (this.control.originX + (x1 * ((this.control.gridSpace / this.control.scaleX))));
 		let pointY1 = this.control.originY + -(y1 * (this.control.gridSpace / this.control.scaleY));
 		this.ctx.fillStyle = color;
-		//let finalHeight = -25;
-		//let finalHeight = -this.control.gridSpace*this.control.scaleX;
-		//let finalHeight = (height*(this.control.gridSpace / this.control.scaleY));
 		let finalHeight;
 		finalHeight = height * (this.control.gridSpace / this.control.scaleY);
 		finalHeight = -finalHeight;
-		//	alert(pointY1);
-		//	 pointY1 = this.control.startXAxis_Y;
 		this.ctx.fillRect(pointX1, pointY1, width, finalHeight);
 	}
 	fillRectangle2(x1, y1, width, height, color, stepX, stepY) {
