@@ -6,11 +6,10 @@
    <script src="/socket.io/socket.io.js"></script>
    <script>
    
-	  var appIDParameter;
+      var appIDParameter;
       var socket = io();
 	  
       socket.on('connection_accept', function(data){
-    
 		switch(appIDParameter) {
 			case 3:
 				
@@ -45,34 +44,25 @@
 			{
 			
 				case "loadedAppData":
-			
 					jsString = document.createElement('SCRIPT')					
 					htmlString =   document.createTextNode("try{" + parseJSON.javascript + "} catch {}") ;
-					
 					jsString.appendChild(htmlString);	
-				    document.body.appendChild(jsString);
-
+				    	document.body.appendChild(jsString);
 					document.getElementById('output1').innerHTML = parseJSON.html;
 					break;
 					
 					
 				case "textFilesRetrieved":
-
 					appID = parseJSON.htmlPage.split('.')[0];
-					
 					if(appID == "app1")
 					{
- 
 						initBuildTable(parseJSON.fileList);
 					}
 					else if(appID == 'app3')
 					{
 						textFilesRetrieved(parseJSON.fileList);
 					}
-
 					break;	
-					
-					
 				case "textFileDataRetrieved2":
 				
 					appID = parseJSON.htmlPage.split('.')[0];
@@ -95,8 +85,7 @@
 					appID = parseJSON.htmlPage.split('.')[0];
 				
 					if(appID == "app1")
-					{
-						
+					{	
 						var outputheader1 = "<b><h1>Output</h1></b><br/>";
 						var theDocumentObject = document.getElementById('tableOutput2Container');
 
@@ -110,9 +99,7 @@
 					}
 
 					else if(appID == "app3")
-					
 					{
-					
 						readOnlyFileName = focusedFileName;
 
 						var outputheader1 = "<div id='read_only_frame' style='border: 1px solid #808080; margin-top: 5px; margin-right: 10px; padding-left: 5px; padding-top: 5px; ";
@@ -123,8 +110,7 @@
 						theDocumentObject.style.borderRight = "1px solid #000080"; 
 						theDocumentObject.style.borderBottom = "1px solid #000080"; 
 						theDocumentObject.style.borderLeft = "10px solid #00022E"; 
-						theDocumentObject.style.paddingLeft = "10px";
-			 
+						theDocumentObject.style.paddingLeft = "10px";			 
 						theDocumentObject.innerHTML =  outputheader1  + parseJSON.fileContents.replace(/\n/g, "<br />");
 					}
 					
@@ -164,7 +150,6 @@
 						focusedFileName = "";
 						readOnlyFileName = "";
 						lastRowClickedIndex = -1;
-
 					}
 					
 					break;
@@ -176,9 +161,7 @@
 					if(appID == "app3")
 					{
 						newTextFileCreated();
-
 					}
-					
 					
 					break;
 					
@@ -217,8 +200,6 @@
 					break;
 					
 				case "csvFilesRetrieved":
-				
-	
 					appID = parseJSON.htmlPage.split('.')[0];
 					
 					if(appID == "app2")
@@ -233,7 +214,6 @@
 					break;
 					
 				case "csvFileRetrieved":
-				
 					appID = parseJSON.htmlPage.split('.')[0];
 					
 					if(appID == "app2")
@@ -251,213 +231,199 @@
 
 				case 'loadedGraphData':
 						
-									 data1 = parseJSON.data		 
-									 chartType = data1[0][0];
+					 data1 = parseJSON.data		 
+					 chartType = data1[0][0];
 
-									document.getElementById('graphData').innerHTML = "";
-									clearScreen(); 
+					document.getElementById('graphData').innerHTML = "";
+					clearScreen(); 
 
-									document.getElementById('title1').innerHTML = data1[4];
+					document.getElementById('title1').innerHTML = data1[4];
 
-									 if(chartType == 'barchart' || chartType == 'linechart') {
-									
-												if(chartType == 'barchart') {
-													header1 = "Bar Chart Builder";
-					 
-												}
-												else if(chartType == 'linechart') { 
-													header1 = "Line Chart Builder";
+					 if(chartType == 'barchart' || chartType == 'linechart') {
 
-												}
+								if(chartType == 'barchart') {
+									header1 = "Bar Chart Builder";
 
-												document.getElementById('column3').innerHTML = buildColumn3Data();
-												
-												
-
-												buildHTML = '<b><h2 >'+header1+'</h2></b>\
-											<br><br><b>Title</b><br/><b><input type="text" value="'+data1[4]+'" id="txtTitle"></b><br/><br/>\
-											<div id="contain1">\
-											<table id="dataTable1">\
-												<thead>\
-														<tr>\
-															<th>X</th>\
-															<th>Y</th>\
-														<th>Color</th>\
-													 </tr>\
-												</thead>\
-												<tbody>';
-								 
-								 
-												data1[0][1].forEach((element, index)=> {
-													buildHTML += '<tr><td><input type="text" class="txtX" value="'+data1[0][1][index]+'"></td><td><input type="text" class="txtY" value="'+data1[0][2][index];
-													buildHTML += '"></td><td><input type="text" class="txtColor" value="' + data1[0][3][index];
-													buildHTML += '"></td><td><button class="deleteLine1"  onClick="deleteRow(this)">X</button></td></tr>'
-												});
-												buildHTML += '</tbody></table></div>';
-												document.getElementById('graphData').innerHTML = buildHTML;
-
-											document.getElementById('scaleX').value = data1[1].scaleX;
-											document.getElementById('scaleY').value =  data1[1].scaleY;
-											document.getElementById('gridSpace').value = data1[1].gridSpace;
-											
-											if(data1[2].numericLabelingVisibility) {
-													if(!document.getElementById('numericLabelingVisible').checked) {
-														document.getElementById('numericLabelingVisible').click();
-													}
-													
-													
-											}
-											else {
-												if(document.getElementById('numericLabelingVisible').checked) {
-													document.getElementById('numericLabelingVisible').click();
-												}
-											}
-									
-									
-										   if(data1[2].xAxisVisible) {
-										   
-													if(!document.getElementById('xAxisVisibility').checked) {
-														document.getElementById('xAxisVisibility').click();
-													}
-										   
-							 
-										   }
-										   else {
-												if(document.getElementById('xAxisVisibility').checked) {
-															document.getElementById('xAxisVisibility').click();
-												 }
-										   }
-											
-											
-										   if(data1[2].yAxisVisible) {
-													if(!document.getElementById('yAxisVisibility').checked) {
-														document.getElementById('yAxisVisibility').click();
-													}
-										   }
-										   else {
-												if(document.getElementById('yAxisVisibility').checked) {
-													document.getElementById('yAxisVisibility').click();
-												
-												}
-									 
-										   }
-										   
-										   if(data1[2].gridLinesVisible) {
-					 
-												if(!document.getElementById('gridLinesVisible').checked) {
-													document.getElementById('gridLinesVisible').click();
-												}
-												
-										   }
-											else {
-												if(document.getElementById('gridLinesVisible').checked) {
-													document.getElementById('gridLinesVisible').click();
-												}
-											 
-											}
-											
-											buildGraph();
-											centerOriginToScreen();
 								}
-									
-								else if(chartType=='candlestick_chart') {
-												 
-										header1 = "Candlestick Chart Builder";
-										document.getElementById('column3').innerHTML = buildColumn3Data();
+								else if(chartType == 'linechart') { 
+									header1 = "Line Chart Builder";
 
-										buildHTML = '<b><h2 >'+header1+'</h2></b>\
-									<br><br><b>Title</b><br/><b><input type="text" value="'+data1[4]+'" id="txtTitle"></b><br/><br/>\
-									<div id="contain1">\
-									<table id="dataTable1">\
-										<thead>\
-												<tr>\
-													<th>Date</th>\
-													<th>Open</th>\
-													<th>High</th>\
-													<th>Low</th>\
-													<th>Close</th>\
-											 </tr>\
-										</thead>\
-										<tbody>';
-										
-
-										data1[0][1].forEach((element, index)=> {
-										
-											buildHTML += '<tr><td><input type="text" class="candlestick_date" value="'+data1[0][1][index]+'"></td><td><input type="text" class="candlestick_open" value="'+parseFloat(data1[0][2][index]).toFixed(2);
-											buildHTML += '"></td><td><input type="text" class="candlestick_high" value="' + parseFloat(data1[0][3][index]).toFixed(2);
-											buildHTML += '"></td><td><input type="text" class="candlestick_low" value="' + parseFloat(data1[0][4][index]).toFixed(2);
-											buildHTML += '"></td><td><input type="text" class="candlestick_close" value="' + parseFloat(data1[0][5][index]).toFixed(2);												
-											buildHTML += '"></td><td><button class="deleteLine1"  onClick="deleteRow(this)">X</button></td></tr>'
-										});
-										
-								
-									buildHTML += '</tbody></table></div>';
-									document.getElementById('graphData').innerHTML = buildHTML;
-
-									document.getElementById('scaleX').value = data1[1].scaleX;
-									document.getElementById('scaleY').value =  data1[1].scaleY;
-									document.getElementById('gridSpace').value = data1[1].gridSpace;
-									
-									if(data1[2].numericLabelingVisibility) {
-											if(!document.getElementById('numericLabelingVisible').checked) {
-												document.getElementById('numericLabelingVisible').click();
-											}
-											
-											
-									}
-									else {
-										if(document.getElementById('numericLabelingVisible').checked) {
-											document.getElementById('numericLabelingVisible').click();
-										}
-									}
-							
-							
-								   if(data1[2].xAxisVisible) {
-								   
-											if(!document.getElementById('xAxisVisibility').checked) {
-												document.getElementById('xAxisVisibility').click();
-											}
-								   
-					 
-								   }
-								   else {
-										if(document.getElementById('xAxisVisibility').checked) {
-													document.getElementById('xAxisVisibility').click();
-										 }
-								   }
-									
-									
-								   if(data1[2].yAxisVisible) {
-											if(!document.getElementById('yAxisVisibility').checked) {
-												document.getElementById('yAxisVisibility').click();
-											}
-								   }
-								   else {
-										if(document.getElementById('yAxisVisibility').checked) {
-											document.getElementById('yAxisVisibility').click();
-										}
-							 
-								   }
-								   
-								   if(data1[2].gridLinesVisible) {
-			 
-										if(!document.getElementById('gridLinesVisible').checked) {
-											document.getElementById('gridLinesVisible').click();
-										}
-										
-								   }
-									else {
-										if(document.getElementById('gridLinesVisible').checked) {
-											document.getElementById('gridLinesVisible').click();
-										}
-									 
-									}	
-									buildGraph();
 								}
+
+								document.getElementById('column3').innerHTML = buildColumn3Data();
+
+
+
+								buildHTML = '<b><h2 >'+header1+'</h2></b>\
+							<br><br><b>Title</b><br/><b><input type="text" value="'+data1[4]+'" id="txtTitle"></b><br/><br/>\
+							<div id="contain1">\
+							<table id="dataTable1">\
+								<thead>\
+										<tr>\
+											<th>X</th>\
+											<th>Y</th>\
+										<th>Color</th>\
+									 </tr>\
+								</thead>\
+								<tbody>';
+
+
+								data1[0][1].forEach((element, index)=> {
+									buildHTML += '<tr><td><input type="text" class="txtX" value="'+data1[0][1][index]+'"></td><td><input type="text" class="txtY" value="'+data1[0][2][index];
+									buildHTML += '"></td><td><input type="text" class="txtColor" value="' + data1[0][3][index];
+									buildHTML += '"></td><td><button class="deleteLine1"  onClick="deleteRow(this)">X</button></td></tr>'
+								});
+								buildHTML += '</tbody></table></div>';
+								document.getElementById('graphData').innerHTML = buildHTML;
+
+							document.getElementById('scaleX').value = data1[1].scaleX;
+							document.getElementById('scaleY').value =  data1[1].scaleY;
+							document.getElementById('gridSpace').value = data1[1].gridSpace;
+
+							if(data1[2].numericLabelingVisibility) {
+									if(!document.getElementById('numericLabelingVisible').checked) {
+										document.getElementById('numericLabelingVisible').click();
+									}
+
+							}
+							else {
+								if(document.getElementById('numericLabelingVisible').checked) {
+									document.getElementById('numericLabelingVisible').click();
+								}
+							}
+
+						   if(data1[2].xAxisVisible) {
+
+									if(!document.getElementById('xAxisVisibility').checked) {
+										document.getElementById('xAxisVisibility').click();
+									}
+
+
+						   }
+						   else {
+								if(document.getElementById('xAxisVisibility').checked) {
+											document.getElementById('xAxisVisibility').click();
+								 }
+						   }
+
+
+						   if(data1[2].yAxisVisible) {
+									if(!document.getElementById('yAxisVisibility').checked) {
+										document.getElementById('yAxisVisibility').click();
+									}
+						   }
+						   else {
+								if(document.getElementById('yAxisVisibility').checked) {
+									document.getElementById('yAxisVisibility').click();
+
+								}
+
+						   }
+
+						   if(data1[2].gridLinesVisible) {
+
+								if(!document.getElementById('gridLinesVisible').checked) {
+									document.getElementById('gridLinesVisible').click();
+								}
+
+						   }
+							else {
+								if(document.getElementById('gridLinesVisible').checked) {
+									document.getElementById('gridLinesVisible').click();
+								}
+
+							}
+
+							buildGraph();
+							centerOriginToScreen();
+				}
+
+				else if(chartType=='candlestick_chart') {
+
+						header1 = "Candlestick Chart Builder";
+						document.getElementById('column3').innerHTML = buildColumn3Data();
+
+						buildHTML = '<b><h2 >'+header1+'</h2></b>\
+							<br><br><b>Title</b><br/><b><input type="text" value="'+data1[4]+'" id="txtTitle"></b><br/><br/>\
+							<div id="contain1">\
+							<table id="dataTable1">\
+								<thead>\
+										<tr>\
+											<th>Date</th>\
+											<th>Open</th>\
+											<th>High</th>\
+											<th>Low</th>\
+											<th>Close</th>\
+									 </tr>\
+								</thead>\
+								<tbody>';
+
+						data1[0][1].forEach((element, index)=> {
+							buildHTML += '<tr><td><input type="text" class="candlestick_date" value="'+data1[0][1][index]+'"></td><td><input type="text" class="candlestick_open" value="'+parseFloat(data1[0][2][index]).toFixed(2);
+							buildHTML += '"></td><td><input type="text" class="candlestick_high" value="' + parseFloat(data1[0][3][index]).toFixed(2);
+							buildHTML += '"></td><td><input type="text" class="candlestick_low" value="' + parseFloat(data1[0][4][index]).toFixed(2);
+							buildHTML += '"></td><td><input type="text" class="candlestick_close" value="' + parseFloat(data1[0][5][index]).toFixed(2);												
+							buildHTML += '"></td><td><button class="deleteLine1"  onClick="deleteRow(this)">X</button></td></tr>'
+						});
+
+
+					buildHTML += '</tbody></table></div>';
+					document.getElementById('graphData').innerHTML = buildHTML;
+
+					document.getElementById('scaleX').value = data1[1].scaleX;
+					document.getElementById('scaleY').value =  data1[1].scaleY;
+					document.getElementById('gridSpace').value = data1[1].gridSpace;
+
+					if(data1[2].numericLabelingVisibility) {
+							if(!document.getElementById('numericLabelingVisible').checked) {
+								document.getElementById('numericLabelingVisible').click();
+							}
+					}
+					else {
+						if(document.getElementById('numericLabelingVisible').checked) {
+							document.getElementById('numericLabelingVisible').click();
+						}
+					}
+
+				   if(data1[2].xAxisVisible) {
+							if(!document.getElementById('xAxisVisibility').checked) {
+								document.getElementById('xAxisVisibility').click();
+							}
+
+				   }
+				   else {
+						if(document.getElementById('xAxisVisibility').checked) {
+									document.getElementById('xAxisVisibility').click();
+						 }
+				   }
+				   if(data1[2].yAxisVisible) {
+							if(!document.getElementById('yAxisVisibility').checked) {
+								document.getElementById('yAxisVisibility').click();
+							}
+				   }
+				   else {
+						if(document.getElementById('yAxisVisibility').checked) {
+							document.getElementById('yAxisVisibility').click();
+						}
+
+				   }
+
+				   if(data1[2].gridLinesVisible) {
+						if(!document.getElementById('gridLinesVisible').checked) {
+							document.getElementById('gridLinesVisible').click();
+						}
+
+				   }
+					else {
+						if(document.getElementById('gridLinesVisible').checked) {
+							document.getElementById('gridLinesVisible').click();
+						}
+
+					}	
+					buildGraph();
+				}
 								
 					break;
-					
-					
 				case "getCandlestickCSVFileListRetrieved":
 					openCSVFileMenu(parseJSON.csvFiles);
 					break;
@@ -477,24 +443,23 @@
 				   header1 = 'Candlestick Chart Builder';
 
 				   buildHTML = '<b><h2 >'+header1+'</h2></b>\
-				<br><br><b>Title</b><br/><b><input type="text" value="'+parseJSON.fileName+'" id="txtTitle"></b><br/><br/>\
-				<div id="contain1">\
-				<table id="dataTable1">\
-					<thead>\
-							<tr>\
-								<th>Date</th>\
-								<th>Open</th>\
-								<th>High</th>\
-								<th>Low</th>\
-								<th>Close</th>\
-						 </tr>\
-					</thead>\
-					<tbody>';
+					<br><br><b>Title</b><br/><b><input type="text" value="'+parseJSON.fileName+'" id="txtTitle"></b><br/><br/>\
+					<div id="contain1">\
+					<table id="dataTable1">\
+						<thead>\
+								<tr>\
+									<th>Date</th>\
+									<th>Open</th>\
+									<th>High</th>\
+									<th>Low</th>\
+									<th>Close</th>\
+							 </tr>\
+						</thead>\
+						<tbody>';
 
 					data1 = parseJSON.fileContents;
-
+					
 					let e;
-
 					data1.forEach((element, index) => {
 					
 						if(index !== 0) {
@@ -630,7 +595,7 @@ function open2DGraphScroller() {
 body {
 
 
-	font-family: Arial, sans-serif, Verdana;
+    font-family: Arial, sans-serif, Verdana;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -661,29 +626,19 @@ body {
 	background-color: #152238;
 	width: 100%;
 	left: 0;
-	
   	position: -webkit-sticky;
-
-
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 5px;
 	color: #FFF;
- 
- 
 	font-size: 1.3em;
-	
 	padding: 10px;
 	white-space: nowrap; 
-
-
- 
 
 
 }
 
 .navigation_menu {
-
 	background-color: #152238;
 	color: #FFF;
 	font-weight: bold;
@@ -696,25 +651,16 @@ body {
 
 
 .wrapper {
-
 	display: grid;
  
 	grid-gap: 5px;
 	background-color: #FFF;
 	color: #444;
 	margin-left: 200px;
-
 	grid-template-columns: repeat(auto-fill, 775px);
-
-
- 
- 
-
-
 }
 
 .contentDisplay {
-
 	background-color: #000080;
 	color: #FFF;
 	border-radius: 0px;
@@ -737,15 +683,13 @@ body {
 
 
 .opacityController {
-    
  opacity: 1;
-   
 }
+	
 .opacityController img:hover {
  opacity: 0.8;
 }
-
-
+	
 p,ul
 {
 line-height: 30px;
@@ -773,20 +717,9 @@ a:active {
 
 
 a.selectedLink {
-
- 
-	color: #87CEFA;
-	font-weight: bold;
-	
+color: #87CEFA;
+font-weight: bold;	
 }
-
-</style>
-
-
-
- 
-
-<style>
  
 .modal {
   display: none;  
@@ -828,14 +761,6 @@ a.selectedLink {
 } 
 
 </style>
-
-
-
-
-
-
-
-
 
 
 </head>
